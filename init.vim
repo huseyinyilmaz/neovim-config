@@ -81,6 +81,9 @@ Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 " For func argument completion
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'airblade/vim-gitgutter'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-commentary'
 call plug#end()
 
 
