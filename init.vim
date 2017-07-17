@@ -84,6 +84,7 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary'
+Plug 'terryma/vim-multiple-cursors'
 call plug#end()
 
 
