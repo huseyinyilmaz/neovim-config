@@ -1,5 +1,42 @@
-" ========== Vim Basic Settings ============="
 scriptencoding utf-8
+
+"============ Vim Config ===================="
+"shoe line numbers
+set number
+set norelativenumber
+
+"no modeline
+set nomodeline
+
+"TAB settings.
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+" tab length for different file types.
+autocmd Filetype html setlocal ts=2 sts=2 sw=2
+autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+
+" More Common Settings.
+"set noshowmode
+set showcmd
+set hidden
+set visualbell
+"Settings for Searching and Moving
+set ignorecase
+set smartcase
+set showmatch
+set hlsearch
+
+" Make Vim to handle long lines nicely.
+set wrap
+set textwidth=79
+set colorcolumn=79
+
+set completeopt=menu,noinsert,noselect
+
+" Set title to window
+set title
 
 " ============================================================================
 " Vim-plug initialization
@@ -20,22 +57,38 @@ if vim_plug_just_installed
 endif
 "============plugin setup================="
 call plug#begin('~/.config/nvim/plugged')
+
 function! DoRemote(arg)
     UpdateRemotePlugins
-  endfunction
+endfunction
 
 "# Navigation"
-Plug 'kien/ctrlp.vim'
+"Plug 'kien/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'neomake/neomake'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"interface"
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'chriskempson/base16-vim'
+Plug 'tpope/vim-vinegar'
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+Plug 'wokalski/autocomplete-flow'
+" For func argument completion
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 call plug#end()
 
+
+" THEME
+"=====================
+colorscheme base16-solarized-dark
+
 "==============plugin configurations========"
+"deoplete---------------------------------
+let g:deoplete#enable_at_startup = 1
+
+"neosnippet-------------------------------
+let g:neosnippet#enable_completed_snippet = 1
+
 " Fuzzy Finder ---------------------------
 let g:fzf_command_prefix = 'FF'
 
@@ -51,17 +104,6 @@ let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
 let g:yankring_clipboard_monitor = 0
 let g:yankring_history_dir = '~/.config/nvim/'
 
-" Airline ------------------------------
-let g:airline_powerline_fonts = 0
-"let g:airline_theme = 'bubblegum'
-let g:airline#extensions#whitespace#enabled = 0
-
-" to use fancy symbols for airline, uncomment the following lines and use a
-" patched font (more info on docs/fancy_symbols.rst)
-"if !exists('g:airline_symbols')
-   "let g:airline_symbols = {}
-"endif
-
 "Neo-make setup---------------------------
 " Run linter on write
 autocmd! BufWritePost * Neomake
@@ -70,13 +112,4 @@ let g:neomake_javascript_enabled_makers = ['eslint']
 
 
 
-
-"============ Vim Config ===================="
-"shoe line numbers
-set number
-
-" tab length for different file types.
-autocmd Filetype html setlocal ts=2 sts=2 sw=2
-autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
-autocmd Filetype python setlocal ts=4 sts=4 sw=4
 
