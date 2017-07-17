@@ -67,6 +67,9 @@ endfunction
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'neomake/neomake'
+" prefer local eslint before trying global eslint
+Plug 'benjie/neomake-local-eslint.vim'
+
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-vinegar'
