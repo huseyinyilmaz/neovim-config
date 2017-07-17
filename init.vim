@@ -70,11 +70,14 @@ Plug 'neomake/neomake'
 " prefer local eslint before trying global eslint
 Plug 'benjie/neomake-local-eslint.vim'
 
+"Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi'
+
 Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-vinegar'
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-Plug 'wokalski/autocomplete-flow'
+" Plug 'wokalski/autocomplete-flow'
 " For func argument completion
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
@@ -86,6 +89,12 @@ call plug#end()
 colorscheme base16-solarized-dark
 
 "==============plugin configurations========"
+
+
+"deoplete-jedi
+let g:python_host_prog = expand('~/.virtualenvs/neovim2/bin/python')
+let g:python3_host_prog = expand('~/.virtualenvs/neovim3/bin/python')
+"let g:python3_host_prog = '/Users/mert/.virtualenvs/neovim3/bin/python'
 "deoplete---------------------------------
 let g:deoplete#enable_at_startup = 1
 
