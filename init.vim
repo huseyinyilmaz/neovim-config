@@ -32,6 +32,7 @@ set hlsearch
 set wrap
 "set textwidth=79
 "set colorcolumn=79
+set foldmethod=syntax
 
 set completeopt=menu,noinsert,noselect
 
@@ -84,7 +85,7 @@ Plug 'tpope/vim-commentary'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'w0rp/ale'
 Plug 'ternjs/tern_for_vim'
-
+Plug 'pangloss/vim-javascript'
 call plug#end()
 
 
@@ -94,8 +95,11 @@ call plug#end()
 colorscheme base16-default-dark
 
 "==============plugin configurations========"
+" vim-javascript--------------------------
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
 
-"tern_for_vim----------------------------
+" tern_for_vim----------------------------
 let g:tern_map_keys = 1
 let g:tern_show_argument_hints = 'on_hold'
 
