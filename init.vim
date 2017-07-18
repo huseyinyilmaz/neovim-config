@@ -30,8 +30,8 @@ set hlsearch
 
 " Make Vim to handle long lines nicely.
 set wrap
-set textwidth=79
-set colorcolumn=79
+"set textwidth=79
+"set colorcolumn=79
 
 set completeopt=menu,noinsert,noselect
 
@@ -66,9 +66,6 @@ endfunction
 "Plug 'kien/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'neomake/neomake'
-" prefer local eslint before trying global eslint
-Plug 'benjie/neomake-local-eslint.vim'
 
 "Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -85,16 +82,25 @@ Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'w0rp/ale'
+
 call plug#end()
 
 
 " THEME
 "=====================
-colorscheme base16-solarized-dark
+" colorscheme base16-solarized-dark
+colorscheme base16-default-dark
 
 "==============plugin configurations========"
 
+"ale--------------------------------------
+set nocompatible
+filetype off
 
+let &runtimepath.=',~/.config/nvim/bundled/ale'
+
+filetype plugin on
 "deoplete-jedi
 let g:python_host_prog = expand('~/.virtualenvs/neovim2/bin/python')
 let g:python3_host_prog = expand('~/.virtualenvs/neovim3/bin/python')
@@ -119,13 +125,4 @@ let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
 " in clipboard
 let g:yankring_clipboard_monitor = 0
 let g:yankring_history_dir = '~/.config/nvim/'
-
-"Neo-make setup---------------------------
-" Run linter on write
-autocmd! BufWritePost * Neomake
-" Add makers
-let g:neomake_javascript_enabled_makers = ['eslint']
-
-
-
 
