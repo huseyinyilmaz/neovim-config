@@ -83,6 +83,7 @@ Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'w0rp/ale'
+Plug 'ternjs/tern_for_vim'
 
 call plug#end()
 
@@ -94,7 +95,11 @@ colorscheme base16-default-dark
 
 "==============plugin configurations========"
 
-"ale--------------------------------------
+"tern_for_vim----------------------------
+let g:tern_map_keys = 1
+let g:tern_show_argument_hints = 'on_hold'
+
+""ane--------------------------------------
 set nocompatible
 filetype off
 
