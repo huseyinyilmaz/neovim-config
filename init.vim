@@ -33,9 +33,9 @@ set wrap
 "set textwidth=79
 "set colorcolumn=79
 set foldmethod=syntax
+set foldlevel=99
 
 set completeopt=menu,noinsert,noselect
-
 " Set title to window
 set title
 
@@ -75,7 +75,7 @@ Plug 'zchee/deoplete-jedi'
 Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-vinegar'
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-" Plug 'wokalski/autocomplete-flow'
+Plug 'wokalski/autocomplete-flow'
 " For func argument completion
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
@@ -86,6 +86,9 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'w0rp/ale'
 Plug 'ternjs/tern_for_vim'
 Plug 'pangloss/vim-javascript'
+
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'flowtype/vim-flow', {'autoload': {'filetypes': 'javascript'}}
 call plug#end()
 
 
@@ -134,4 +137,3 @@ let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
 " in clipboard
 let g:yankring_clipboard_monitor = 0
 let g:yankring_history_dir = '~/.config/nvim/'
-
