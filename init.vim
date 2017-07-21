@@ -95,9 +95,12 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'w0rp/ale'
 Plug 'ternjs/tern_for_vim'
 Plug 'pangloss/vim-javascript'
+Plug 'tpope/vim-surround'
 
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'flowtype/vim-flow', {'autoload': {'filetypes': 'javascript'}}
+Plug 'tpope/vim-fugitive'
+Plug 'stanangeloff/php.vim'
 call plug#end()
 
 
@@ -117,6 +120,8 @@ endif
 if executable(local_flow)
   let g:flow#flowpath = local_flow
 endif
+
+let g:flow#autoclose = 1
 
 " vim-javascript--------------------------
 let g:javascript_plugin_jsdoc = 1
