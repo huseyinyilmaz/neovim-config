@@ -101,16 +101,21 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'flowtype/vim-flow', {'autoload': {'filetypes': 'javascript'}}
 Plug 'tpope/vim-fugitive'
 Plug 'stanangeloff/php.vim'
+Plug 'jmcantrell/vim-virtualenv'
+
 call plug#end()
 
 
 " THEME
 "=====================
 " colorscheme base16-solarized-dark
-colorscheme base16-default-dark
+" colorscheme base16-default-dark
+colorscheme base16-google-dark
 
 "==============plugin configurations========"
 
+let g:python_host_prog = expand('~/.virtualenvs/neovim2/bin/python')
+let g:python3_host_prog = expand('~/.virtualenvs/neovim3/bin/python')
 "vim-flow configuration-------------------
 "Use locally installed flow
 let local_flow = finddir('node_modules', '.;') . '/.bin/flow'
@@ -136,11 +141,13 @@ set nocompatible
 filetype off
 
 let &runtimepath.=',~/.config/nvim/bundled/ale'
+" use flake8 from virtualenv
+" let g:ale_python_flake8_executable = $VIRTUAL_ENV . '/bin/flake8'
+let g:ale_python_flake8_executable = 'python3'
+let g:ale_python_flake8_args = '-m flake8'
 
 filetype plugin on
 "deoplete-jedi
-let g:python_host_prog = expand('~/.virtualenvs/neovim2/bin/python')
-let g:python3_host_prog = expand('~/.virtualenvs/neovim3/bin/python')
 "let g:python3_host_prog = '/Users/mert/.virtualenvs/neovim3/bin/python'
 "deoplete---------------------------------
 let g:deoplete#enable_at_startup = 1
