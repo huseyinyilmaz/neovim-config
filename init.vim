@@ -102,7 +102,8 @@ Plug 'flowtype/vim-flow', {'autoload': {'filetypes': 'javascript'}}
 Plug 'tpope/vim-fugitive'
 Plug 'stanangeloff/php.vim'
 Plug 'jmcantrell/vim-virtualenv'
-
+Plug 'jceb/vim-orgmode'
+Plug 'ervandew/supertab'
 call plug#end()
 
 
