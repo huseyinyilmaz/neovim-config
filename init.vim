@@ -80,6 +80,7 @@ Plug 'junegunn/fzf.vim'
 "Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
+Plug 'Vimjas/vim-python-pep8-indent'
 
 Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-vinegar'
@@ -143,8 +144,8 @@ filetype off
 
 let &runtimepath.=',~/.config/nvim/bundled/ale'
 " use flake8 from virtualenv
-" let g:ale_python_flake8_executable = $VIRTUAL_ENV . '/bin/flake8'
-let g:ale_python_flake8_executable = 'python3'
+"let g:ale_python_flake8_executable = $VIRTUAL_ENV . '/bin/flake8'
+let g:ale_python_flake8_executable = 'python'
 let g:ale_python_flake8_args = '-m flake8'
 
 filetype plugin on
