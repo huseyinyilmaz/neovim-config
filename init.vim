@@ -39,6 +39,8 @@ set completeopt=menu,noinsert,noselect
 " Set title to window
 set title
 
+set clipboard=unnamedplus
+
 "CUSTOM KEYS
 " Move lines up and down
 nnoremap <A-j> :m .+1<CR>==
