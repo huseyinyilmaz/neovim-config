@@ -39,8 +39,7 @@ set completeopt=menu,noinsert,noselect
 " Set title to window
 set title
 
-set clipboard=unnamedplus
-
+set clipboard+=unnamedplus
 "CUSTOM KEYS
 " Move lines up and down
 nnoremap <A-j> :m .+1<CR>==
@@ -139,7 +138,8 @@ let g:javascript_plugin_flow = 1
 " tern_for_vim----------------------------
 let g:tern_map_keys = 1
 let g:tern_show_argument_hints = 'on_hold'
-
+" vim better whitespace--------------------
+autocmd BufEnter * EnableStripWhitespaceOnSave
 ""ane--------------------------------------
 set nocompatible
 filetype off
