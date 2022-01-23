@@ -1,11 +1,9 @@
 My Neo-Vim Configuration
 ========================
 
-Shortcuts
----------
+To Install
+----------
 
-- N gcc : comment line
-- V gc: comment selection
-
-- N <leader> e : find file
-- N <leader l : live search
+```
+❯ git clone git@github.com:huseyinyilmaz/neovim-config.git ~/.config/nvim
+```
