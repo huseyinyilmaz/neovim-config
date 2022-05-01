@@ -1,9 +1,6 @@
-local status_ok, _ = pcall(require, "lspconfig")
-if not status_ok then
-	return
-end
-
-require("user.lsp.lsp-installer")
-require("user.lsp.handlers").setup()
-require("user.lsp.null-ls")
+local import_utils = require('user.importutils')
+import_utils.require('lspconfig')
+import_utils.require("user.lsp.lsp-installer")
+import_utils.require("user.lsp.handlers").setup()
+import_utils.require("user.lsp.null-ls")
 print("lsp initialization complete")

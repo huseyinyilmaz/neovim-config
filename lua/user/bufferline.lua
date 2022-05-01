@@ -1,7 +1,5 @@
-local status_ok, bufferline = pcall(require, "bufferline")
-if not status_ok then
-  return
-end
+local import_utils = require('user.importutils')
+local bufferline = import_utils.require('bufferline')
 
 bufferline.setup {
   options = {
