@@ -29,16 +29,6 @@ if not status_ok then
   return
 end
 
--- Have packer use a popup window
-
---packer.init {
---  display = {
---    open_fn = function()
---      return require("packer.util").float { border = "rounded" }
---    end,
---  },
---}
-
 -- Install your plugins here
 return packer.startup(function(use)
   -- My plugins here
@@ -49,8 +39,7 @@ return packer.startup(function(use)
 
   use 'kyazdani42/nvim-web-devicons'
   use 'kyazdani42/nvim-tree.lua'
-
-  use "akinsho/bufferline.nvim"
+  use {'akinsho/bufferline.nvim', tag = "*", requires = 'kyazdani42/nvim-web-devicons'}
   use "moll/vim-bbye"
   use 'nvim-lualine/lualine.nvim'
   use "akinsho/toggleterm.nvim"
@@ -58,7 +47,10 @@ return packer.startup(function(use)
   use "goolord/alpha-nvim"
   use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
   use "ahmedkhalf/project.nvim"
+  use "editorconfig/editorconfig-vim"
   use "nvim-orgmode/orgmode"
+  -- use "shoumodip/ido.nvim"
+
   -- Color Schemes
   use "navarasu/onedark.nvim"
   use 'folke/tokyonight.nvim'

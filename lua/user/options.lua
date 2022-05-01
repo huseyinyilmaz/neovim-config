@@ -38,5 +38,8 @@ vim.opt.guifont = "monospace:h17"               -- the font used in graphical ne
 vim.opt.shortmess:append "c"
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
+vim.opt.exrc = true                             -- load .nvimrc/.exrc
+vim.opt.secure = true                           -- do not allow shell and write commands in .nvimrc/.exrc
+
 -- vim.cmd [[set iskeyword+=-]]   -- This lets - character not seperate words. so dw would delete all word and not the word upto - character.
 -- vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work

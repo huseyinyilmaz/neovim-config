@@ -12,7 +12,7 @@ parser_config.org = {
 }
 
 configs.setup {
-  ensure_installed = "maintained",
+  ensure_installed = "all",
   sync_install = false,
   ignore_install = { "" }, -- List of parsers to ignore installing
   highlight = {

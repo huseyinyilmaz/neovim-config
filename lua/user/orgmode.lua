@@ -5,4 +5,4 @@ end
 
 
 
-orgmode.setup({})
+orgmode.setup_ts_grammar()
