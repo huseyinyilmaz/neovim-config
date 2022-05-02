@@ -50,6 +50,7 @@ return packer.startup(function(use)
   use "editorconfig/editorconfig-vim"
   use "nvim-orgmode/orgmode"
   use "kchmck/vim-coffee-script"
+  -- use({'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" }})
   -- use "shoumodip/ido.nvim"
   use "klen/nvim-config-local"
   -- Color Schemes
@@ -81,6 +82,7 @@ return packer.startup(function(use)
   -- Telescope
   use "nvim-telescope/telescope.nvim"
   use 'nvim-telescope/telescope-media-files.nvim'
+  use "nvim-telescope/telescope-file-browser.nvim"
 
   -- Treesitter
   use {
