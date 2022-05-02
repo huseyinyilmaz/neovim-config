@@ -49,13 +49,17 @@ return packer.startup(function(use)
   use "ahmedkhalf/project.nvim"
   use "editorconfig/editorconfig-vim"
   use "nvim-orgmode/orgmode"
+  use "kchmck/vim-coffee-script"
   -- use "shoumodip/ido.nvim"
   use "klen/nvim-config-local"
   -- Color Schemes
-  use "navarasu/onedark.nvim"
+  use 'navarasu/onedark.nvim'
   use 'folke/tokyonight.nvim'
-  use "lunarvim/darkplus.nvim"
-
+  use 'lunarvim/darkplus.nvim'
+  use 'tanvirtin/monokai.nvim'
+  use 'morhetz/gruvbox'
+  use 'shaunsingh/solarized.nvim'
+  use 'shaunsingh/nord.nvim'
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
   use "hrsh7th/cmp-buffer" -- buffer completions
@@ -73,6 +77,7 @@ return packer.startup(function(use)
   use "neovim/nvim-lspconfig" -- enable LSP
   use "williamboman/nvim-lsp-installer" -- simple to use language server nvim-lsp-installer
   use "jose-elias-alvarez/null-ls.nvim"
+  use "simrat39/symbols-outline.nvim"
   -- Telescope
   use "nvim-telescope/telescope.nvim"
   use 'nvim-telescope/telescope-media-files.nvim'

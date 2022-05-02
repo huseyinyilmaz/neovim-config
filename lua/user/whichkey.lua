@@ -158,6 +158,7 @@ local mappings = {
       "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
       "Workspace Symbols",
     },
+    o = { "<cmd>SymbolsOutline<cr>", "Symbol Outline Sidebar" },
   },
   s = {
     name = "Search",
