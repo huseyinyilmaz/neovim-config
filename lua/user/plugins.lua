@@ -39,7 +39,7 @@ return packer.startup(function(use)
 
   use 'kyazdani42/nvim-web-devicons'
   use 'kyazdani42/nvim-tree.lua'
-  use {'akinsho/bufferline.nvim', tag = "*", requires = 'kyazdani42/nvim-web-devicons'}
+  use { 'akinsho/bufferline.nvim', tag = "*", requires = 'kyazdani42/nvim-web-devicons' }
   use "moll/vim-bbye"
   use 'nvim-lualine/lualine.nvim'
   use "akinsho/toggleterm.nvim"
@@ -50,13 +50,13 @@ return packer.startup(function(use)
   use "editorconfig/editorconfig-vim"
   use "nvim-orgmode/orgmode"
   -- use "shoumodip/ido.nvim"
-
+  use "klen/nvim-config-local"
   -- Color Schemes
   use "navarasu/onedark.nvim"
   use 'folke/tokyonight.nvim'
   use "lunarvim/darkplus.nvim"
 
-    -- cmp plugins
+  -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
   use "hrsh7th/cmp-buffer" -- buffer completions
   use "hrsh7th/cmp-path" -- path completions
@@ -69,7 +69,7 @@ return packer.startup(function(use)
   use "L3MON4D3/LuaSnip" --snippet engine
   use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
-    -- LSP
+  -- LSP
   use "neovim/nvim-lspconfig" -- enable LSP
   use "williamboman/nvim-lsp-installer" -- simple to use language server nvim-lsp-installer
   use "jose-elias-alvarez/null-ls.nvim"

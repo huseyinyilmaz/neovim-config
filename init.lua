@@ -17,4 +17,6 @@ require "user.project"
 require "user.alpha"
 require "user.neogit"
 require "user.orgmode"
+require "user.configlocal"
+require "user.utils"
 print('neovim initialization complete')
