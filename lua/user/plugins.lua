@@ -56,7 +56,7 @@ return packer.startup(function(use)
   -- Color Schemes
   use 'navarasu/onedark.nvim'
   use 'folke/tokyonight.nvim'
-  use 'lunarvim/darkplus.nvim'
+  -- use 'lunarvim/darkplus.nvim'
   use 'tanvirtin/monokai.nvim'
   use 'morhetz/gruvbox'
   use 'shaunsingh/solarized.nvim'
