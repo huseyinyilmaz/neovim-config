@@ -69,7 +69,7 @@ local setup = {
   },
 }
 
-local opts = {
+local leader_opts = {
   mode = "n", -- NORMAL mode
   prefix = "<leader>",
   buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
@@ -78,15 +78,13 @@ local opts = {
   nowait = true, -- use `nowait` when creating keymaps
 }
 
-local mappings = {
+local leader_mappings = {
   ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
   ["b"] = {
     "<cmd>Telescope buffers theme=ivy<cr>",
     "Find Buffers",
   },
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-  ["w"] = { "<cmd>w!<CR>", "Save" },
-  ["q"] = { "<cmd>q!<CR>", "Quit" },
   ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
   ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
   ["E"] = {
@@ -189,5 +187,24 @@ local mappings = {
   },
 }
 
+local global_opts = {
+  mode = "n", -- NORMAL mode
+  -- prefix = "<leader>",
+  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+  silent = true, -- use `silent` when creating keymaps
+  noremap = true, -- use `noremap` when creating keymaps
+  nowait = true, -- use `nowait` when creating keymaps
+}
+
+local global_mappings = {
+  ["K"] = {"<cmd>lua vim.lsp.buf.hover()<CR>", "Show Type Info"},
+  g = {
+    q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Show All LSP Errors"},
+    l = { '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<cr>', "Show Diagnostics"},
+  },
+}
+
+
 which_key.setup(setup)
-which_key.register(mappings, opts)
+which_key.register(leader_mappings, leader_opts)
+which_key.register(global_mappings, global_opts)

@@ -1,3 +1,6 @@
+local lspconfig = require("lspconfig")
+local utils = require("user.lsp.handlers.utils")
+
 -- Find more schemas here: https://www.schemastore.org/json/
 local schemas = {
   {
@@ -164,11 +167,15 @@ local schemas = {
 }
 
 local opts = {
+  on_attach = utils.on_attach,
+  capabilities = utils.capabilities,
+
   settings = {
     json = {
       schemas = schemas,
     },
   },
+
   setup = {
     commands = {
       Format = {
@@ -180,4 +187,8 @@ local opts = {
   },
 }
 
-return opts
+return function()
+  local handler_name = 'jsonls'
+  lspconfig[handler_name].setup(opts)
+  print('Custom lsp initialization is complete: ' .. handler_name)
+end
