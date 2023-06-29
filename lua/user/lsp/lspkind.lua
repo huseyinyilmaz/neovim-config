@@ -1,5 +1,4 @@
-local import_utils = require('user.importutils')
-local lspkind = import_utils.require('lspkind')
+local lspkind = require('lspkind')
 lspkind.init({
     -- DEPRECATED (use mode instead): enables text annotations
     --
