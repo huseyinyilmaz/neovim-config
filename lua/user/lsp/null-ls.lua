@@ -11,12 +11,15 @@ null_ls.setup {
     -- formatting.eslint,
     formatting.gofmt,
     -- formatting.prettier.with { extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } },
+    -- Python
     formatting.black.with { extra_args = { "--fast" } },
     formatting.isort,
+    diagnostics.flake8,
     -- formatting.yapf,
     -- There is another formatter provided by sumneko_lua lsp backend.
     -- formatting.stylua,
-    formatting.prettierd,
-    diagnostics.flake8,
+    -- js, jsx, ts, tsx
+    formatting.prettier,
+    -- formatting.prettierd,
   },
 }
