@@ -20,5 +20,5 @@ require "user.neogit"
 require "user.orgmode"
 require "user.configlocal"
 require "user.utils"
-require "user.chatgpt"
+-- require "user.chatgpt"
 print('neovim initialization complete')
