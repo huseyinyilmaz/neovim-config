@@ -2,7 +2,7 @@ local import_utils = require('user.importutils')
 local bufferline = import_utils.require('bufferline')
 
 bufferline.setup {
-  -- options = {
+  options = {
   --   numbers = "none",                    -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
   --   close_command = "Bdelete! %d",       -- can be a string | function, see "Mouse actions"
   --   right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
@@ -29,9 +29,10 @@ bufferline.setup {
   --   --     return vim.fn.fnamemodify(buf.name, ':t:r')
   --   --   end
   --   -- end,
-  --   max_name_length = 40,
-  --   max_prefix_length = 40, -- prefix used when a buffer is de-duplicated
-  --   -- tab_size = 41,
+  max_name_length = 40,
+  max_prefix_length = 40, -- prefix used when a buffer is de-duplicated
+  -- tab_size = 41,
+  truncate_names = false,
   --   diagnostics = false,    -- | "nvim_lsp" | "coc",
   --   diagnostics_update_in_insert = false,
   --   -- diagnostics_indicator = function(count, level, diagnostics_dict, context)
@@ -138,5 +139,5 @@ bufferline.setup {
   --     fg = { attribute = "fg", highlight = "LspDiagnosticsDefaultHint" },
   --     bg = { attribute = "bg", highlight = "Normal" },
   --   },
-  -- },
+  },
 }
