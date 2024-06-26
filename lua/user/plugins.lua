@@ -56,6 +56,7 @@ return packer.startup(function(use)
   -- Color Schemes
   use 'navarasu/onedark.nvim'
   use 'folke/tokyonight.nvim'
+  use { "catppuccin/nvim", as = "catppuccin" }
   -- use 'lunarvim/darkplus.nvim'
   use 'tanvirtin/monokai.nvim'
   use 'morhetz/gruvbox'
@@ -92,7 +93,7 @@ return packer.startup(function(use)
     run = ":TSUpdate",
   }
   use "p00f/nvim-ts-rainbow"
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
+  -- use 'JoosepAlviste/nvim-ts-context-commentstring'
 
 
   -- Git

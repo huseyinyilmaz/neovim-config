@@ -10,9 +10,9 @@ local code_actions = null_ls.builtins.code_actions
 null_ls.setup {
   debug = false,
   sources = {
-    -- formatting.eslint,
     formatting.gofmt,
     -- formatting.prettier.with { extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } },
+    --
     -- Python
     formatting.black.with { extra_args = { "--fast" } },
     formatting.isort,
@@ -21,8 +21,19 @@ null_ls.setup {
     -- There is another formatter provided by sumneko_lua lsp backend.
     -- formatting.stylua,
     -- js, jsx, ts, tsx
+    --
+    -- Javascript and Typescript
+    -- formatting.eslint,
     formatting.prettier,
-    -- formatting.prettierd,
+    diagnostics.eslint,
+    code_actions.eslint,
+    --
+    -- css scss sass
+    diagnostics.stylelint,
+    formatting.stylelint,
+  
+    --
+    -- Bash
     code_actions.shellcheck,
     -- Instead of using this from null-ls use bash-lsp which uses shellcheck for errors.
     -- null_ls.builtins.diagnostics.shellcheck,
