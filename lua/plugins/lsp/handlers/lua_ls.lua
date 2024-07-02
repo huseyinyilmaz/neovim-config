@@ -1,12 +1,18 @@
 local lspconfig = require("lspconfig")
-local utils = require("user.lsp.handlers.utils")
+local utils = require("plugins.lsp.handlers.utils")
 
 local	settings = {
-    python = {
-      analysis = {
-        typeCheckingMode = "on"
-      }
-    }
+		Lua = {
+			diagnostics = {
+				globals = { "vim" },
+			},
+			workspace = {
+				library = {
+					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+					[vim.fn.stdpath("config") .. "/lua"] = true,
+				},
+			},
+		},
 	}
 
 local opts = {
@@ -16,7 +22,7 @@ local opts = {
 }
 
 return function()
-  local handler_name = 'pyright'
+  local handler_name = 'lua_ls'
   lspconfig[handler_name].setup(opts)
   print('Custom lsp initialization is complete: ' .. handler_name)
 end

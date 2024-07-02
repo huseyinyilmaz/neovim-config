@@ -1,5 +1,5 @@
 local lspconfig = require("lspconfig")
-local utils = require("user.lsp.handlers.utils")
+local utils = require("plugins.lsp.handlers.utils")
 
 local opts = {
   on_attach = utils.on_attach,

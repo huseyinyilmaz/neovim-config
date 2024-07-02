@@ -1,6 +1,0 @@
-local import_utils = require('user.importutils')
-import_utils.require('lspconfig')
-import_utils.require("user.lsp.mason")
-import_utils.require("user.lsp.null-ls")
-import_utils.require("user.lsp.lspkind")
-print("lsp initialization complete")

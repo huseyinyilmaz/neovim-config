@@ -1,5 +1,6 @@
 local lspconfig = require("lspconfig")
-local utils = require("user.lsp.handlers.utils")
+
+local utils = require("plugins.lsp.handlers.utils")
 
 -- Find more schemas here: https://www.schemastore.org/json/
 local schemas = {

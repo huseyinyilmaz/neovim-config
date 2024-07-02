@@ -1,9 +1,7 @@
-local status_ok, telescope = pcall(require, "telescope")
-if not status_ok then
-  return
-end
+local setup_telescope = function()
 
-telescope.load_extension('media_files')
+local telescope = require("telescope")
+
 telescope.load_extension('file_browser')
 
 local actions = require "telescope.actions"
@@ -80,26 +78,40 @@ telescope.setup {
       },
     },
   },
-  pickers = {
-    -- Default configuration for builtin pickers goes here:
-    -- picker_name = {
-    --   picker_config_key = value,
-    --   ...
-    -- }
-    -- Now the picker_config_key will be applied every time you call this
-    -- builtin picker
+}
+
+end
+
+
+
+
+return {
+  "nvim-telescope/telescope.nvim",
+  dependencies = {
+    { "nvim-lua/plenary.nvim" },
+    { "nvim-lua/popup.nvim" },
+    { "nvim-telescope/telescope-fzy-native.nvim" },
+    { "nvim-tree/nvim-web-devicons" },
+    { "nvim-telescope/telescope-file-browser.nvim" },
+    { "nvim-telescope/telescope-ui-select.nvim" },
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
+      dependencies = {
+        "junegunn/fzf.vim",
+        dependencies = {
+          {
+            "tpope/vim-dispatch",
+            cmd = { "Make", "Dispatch" },
+          },
+          {
+            "junegunn/fzf",
+            build = ":call fzf#install()",
+          }
+        },
+      },
+    },
   },
-  extensions = {
-    media_files = {
-        -- filetypes whitelist
-        -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-        filetypes = {"png", "webp", "jpg", "jpeg"},
-        find_cmd = "rg" -- find command (defaults to `fd`)
-      }
-    -- Your extension configuration goes here:
-    -- extension_name = {
-    --   extension_config_key = value,
-    -- }
-    -- please take a look at the readme of the extension you want to configure
-  },
+  event = "VeryLazy",
+  config = setup_telescope,
 }
