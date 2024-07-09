@@ -53,8 +53,9 @@ local normal_mode_mappings = {
         "Workspace Diagnostics",
       },
       f = { "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", "Format" },
-      i = { "<cmd>LspInfo<cr>", "Info" },
-      I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
+      i = { "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>", "Toggle Inlay Hints" },
+      I = { "<cmd>LspInfo<cr>", "LSP Info" },
+      -- I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
       j = {
         "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",
         "Next Diagnostic",
