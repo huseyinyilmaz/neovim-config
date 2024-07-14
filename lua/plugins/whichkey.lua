@@ -30,6 +30,7 @@ local normal_mode_mappings = {
     ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
     ["c"] = { "<cmd>bdelete<CR>", "Close Buffer" },
     ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
+    ["H"] = { "<cmd>checkhealth<CR>", "Check Health" },
 
     ["E"] = {
       "<cmd>Telescope find_files theme=ivy<cr>",
@@ -44,6 +45,7 @@ local normal_mode_mappings = {
     ["l"] = {
       name = "LSP",
       a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+      c = { "<cmd>TSContextToggle<cr>", "Toggle Context"},
       d = {
         "<cmd>Telescope diagnostics<cr>",
         "Document Diagnostics",
