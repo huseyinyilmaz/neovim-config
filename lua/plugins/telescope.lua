@@ -2,8 +2,6 @@ local setup_telescope = function()
 
 local telescope = require("telescope")
 
-telescope.load_extension('file_browser')
-
 local actions = require "telescope.actions"
 
 telescope.setup {
@@ -79,6 +77,10 @@ telescope.setup {
     },
   },
 }
+
+telescope.load_extension("ui-select")
+telescope.load_extension('file_browser')
+
 
 end
 
