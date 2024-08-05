@@ -27,20 +27,21 @@ local normal_mode_mappings = {
 
   ["<leader>"] = {
     ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
-    ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
     ["c"] = { "<cmd>bdelete<CR>", "Close Buffer" },
     ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
     ["H"] = { "<cmd>checkhealth<CR>", "Check Health" },
 
-    ["E"] = {
-      "<cmd>Telescope find_files theme=ivy<cr>",
-      "Find files",
-    },
+
+    ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+    ["E"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
     ["f"] = {
       "<cmd>Telescope file_browser theme=ivy<cr>",
       "File Browser",
     },
-    ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
+    ["F"] = {
+      "<cmd>Telescope find_files theme=ivy<cr>",
+      "Find files",
+    },
 
     ["l"] = {
       name = "LSP",
