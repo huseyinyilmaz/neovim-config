@@ -18,6 +18,7 @@ local setup = function()
     dashboard.button("O", "  Personal obsidian notes.", ":edit ~/Dropbox/obsidian/personal/init.md <CR>"),
     dashboard.button("s", "  Open SchoolConnect backend.", ":edit ~/reckon/schoolmeals/backend/run <CR>"),
     dashboard.button("S", "  Open SchoolConnect frontend.", ":edit ~/reckon/schoolmeals/frontend/run <CR>"),
+    dashboard.button("v", "  Open neovim config.", ":edit ~/.config/nvim/init.lua <CR>"),
     -- dashboard.button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
     dashboard.button("t", "  Find text", ":Telescope live_grep <CR>"),
     dashboard.button("c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),

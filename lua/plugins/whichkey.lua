@@ -1,3 +1,4 @@
+local harpoon = require("harpoon")
 local normal_mode_mappings = {
   -- tabline shortcuts
   ["<S-l>"] = { "<cmd>BufferLineCycleNext<CR>", "Next Buffer" },
@@ -46,7 +47,7 @@ local normal_mode_mappings = {
     ["l"] = {
       name = "LSP",
       a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-      c = { "<cmd>TSContextToggle<cr>", "Toggle Context"},
+      c = { "<cmd>TSContextToggle<cr>", "Toggle Context" },
       d = {
         "<cmd>Telescope diagnostics<cr>",
         "Document Diagnostics",
@@ -83,6 +84,7 @@ local normal_mode_mappings = {
       b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
       c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
       h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
+      H = { "<cmd>Telescope harpoon marks<cr>", "Harpoon Marks" },
       M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
       r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
       R = { "<cmd>Telescope registers<cr>", "Registers" },
@@ -90,7 +92,20 @@ local normal_mode_mappings = {
       C = { "<cmd>Telescope commands<cr>", "Commands" },
       g = { "<cmd>Telescope grep_string<cr>", "Grep String" },
     },
-
+    m = {
+      name = "Harpoon",
+      l = { "<cmd>Telescope harpoon marks<cr>", "List Marks" },
+      L = { function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "List Marks" },
+      t = { "<cmd>lua require(\"harpoon.term\").gotoTerminal()<cr>", "Terminal" },
+      a = { function() harpoon:list():add() end, "Add Mark" },
+      d = { function() harpoon:list():remove() end, "Remove Mark" },
+      n = { "<cmd>lua require(\"harpoon.ui\").nav_next()<cr>", "Next Mark" },
+      p = { "<cmd>lua require(\"harpoon.ui\").nav_prev()<cr>", "Prev Mark" },
+      ["1"] = { function() harpoon:list():select(1) end, "Select Mark 1" },
+      ["2"] = { function() harpoon:list():select(2) end, "Select Mark 2" },
+      ["3"] = { function() harpoon:list():select(3) end, "Select Mark 3" },
+      ["4"] = { function() harpoon:list():select(4) end, "Select Mark 4" },
+    },
   }
 }
 
