@@ -6,6 +6,15 @@
 --
 -- return { "polirritmico/monokai-nightasty.nvim", lazy = false, priority = 1000 }
 --
+return {
+  "ellisonleao/gruvbox.nvim",
+  priority = 1000,
+  config = function()
+    vim.cmd("colorscheme gruvbox")
+  end,
+
+  opts = ...
+}
 
 -- return { 'maxmx03/solarized.nvim',
 --     lazy = false,
@@ -18,9 +27,9 @@
 --   }
 
 
-return {
-  "folke/tokyonight.nvim",
-  config = function()
-    vim.cmd("colorscheme tokyonight")
-  end,
-}
+-- return {
+--   "folke/tokyonight.nvim",
+--   config = function()
+--     vim.cmd("colorscheme tokyonight")
+--   end,
+-- }
