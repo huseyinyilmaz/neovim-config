@@ -13,9 +13,17 @@ return {
       temperature = 0,
       max_tokens = 4096,
     },
-    openai = {
-      model = "gpt-4o-mini",
-    },
+    -- openai = {
+    --   model = "gpt-4o-mini",
+    -- },
+    -- Local ollama
+    -- openai = {
+    --   endpoint = "http://127.0.0.1:11434",
+    --     model = "llama3.2",
+    --     temperature = 0,
+    --     max_tokens = 4096,
+    --     ["local"] = true,
+    -- },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = "make",
