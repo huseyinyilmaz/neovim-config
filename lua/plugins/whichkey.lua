@@ -27,7 +27,7 @@ local normal_mode_mappings = {
   },
 
   ["<leader>"] = {
-    ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
+    -- ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
     ["c"] = { "<cmd>bdelete<CR>", "Close Buffer" },
     ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
     ["H"] = { "<cmd>checkhealth<CR>", "Check Health" },
