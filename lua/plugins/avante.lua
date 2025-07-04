@@ -6,34 +6,35 @@ return {
   opts = {
     -- provider = "openai",
     provider = "gemini",
-    -- provider = "ollama",
-    -- provider = "deepseek",
-    gemini = {
-      -- @see https://ai.google.dev/gemini-api/docs/models/gemini
-      model ="gemini-2.0-flash",	
-      -- model = "gemini-1.5-pro",
-      temperature = 0,
-      max_tokens = 4096,
-    },
-    -- Open ai config
-    -- openai = {
-    --   model = "gpt-4o-mini",
-    -- },
-    --
-    --
-    --
-    --
-    -- Deepseek config
-    openai = {
-      endpoint = "https://api.deepseek.com/v1",
-      model = "deepseek-chat",
-      timeout = 30000,     -- Timeout in milliseconds
-      temperature = 0,
-      max_tokens = 4096,
-      -- optional
-      api_key_name = "DEEPSEEK_API_KEY",     -- default OPENAI_API_KEY if not set
-    },
-    vendors = {
+    providers = {
+      gemini = {
+        -- @see https://ai.google.dev/gemini-api/docs/models/gemini
+        model ="gemini-2.0-flash",	
+        -- model = "gemini-1.5-pro",
+        temperature = 0,
+        max_tokens = 4096,
+      },
+      -- Open ai config
+      -- openai = {
+      --   model = "gpt-4o-mini",
+      -- },
+      --
+      --
+      --
+      --
+      -- Deepseek config
+      openai = {
+        endpoint = "https://api.deepseek.com/v1",
+        model = "deepseek-chat",
+        timeout = 30000,     -- Timeout in milliseconds
+        -- optional
+        api_key_name = "DEEPSEEK_API_KEY",     -- default OPENAI_API_KEY if not set
+        extra_request_body = {
+          temperature = 0,
+          max_tokens = 4096,
+        }
+      },
+
       ollama = {
         -- ["local"] = true,
         api_key_name = '',
@@ -61,7 +62,10 @@ return {
         end,
       },
 
-    },
+      
+    }
+    -- provider = "ollama",
+    -- provider = "deepseek",
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = "make",

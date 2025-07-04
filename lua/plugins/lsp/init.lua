@@ -9,7 +9,7 @@ local setup_null_ls = function()
   local code_actions = null_ls.builtins.code_actions
 
   null_ls.setup {
-    debug = false,
+    debug = true,
 
     sources = {
       -- ts / js
@@ -28,12 +28,12 @@ local setup_null_ls = function()
       -- formatting.gofmt,
       --
       -- python
-      -- diagnostics.flake8,
-      -- formatting.black.with { extra_args = { "--fast" } },
-      -- formatting.isort,
+      diagnostics.flake8,
+      formatting.black.with { extra_args = { "--fast" } },
+      formatting.isort,
       --
       -- lua
-      -- formatting.stylua,
+      formatting.stylua,
     }
   }
   
@@ -73,9 +73,9 @@ local setup_null_ls = function()
 
 end
 
-
 local setup_mason_lspconfig = function()
   -- local mason = require("mason")
+  require("lspconfig") -- Require lspconfig here
   local mason_lspconfig = require("mason-lspconfig")
   local handlers = require("plugins.lsp.handlers")
 
@@ -92,26 +92,26 @@ local setup_mason_lspconfig = function()
 
 end
 
-
 return {
-  "neovim/nvim-lspconfig",
-  dependencies = {
-    {
-      "jose-elias-alvarez/null-ls.nvim",
-      config = setup_null_ls,
-    },
-    {
-      "williamboman/mason.nvim",
-      opts = {
-        ui = {
-          border = "rounded",
-        },
+  {"neovim/nvim-lspconfig"},
+
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ui = {
+        border = "rounded",
       },
     },
-    {
-      "williamboman/mason-lspconfig.nvim",
-      config = setup_mason_lspconfig,
-    },
-    event = "VeryLazy",
+  },
+
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = setup_mason_lspconfig,
+  },
+
+  {
+    "nvimtools/none-ls.nvim",
+    after = "nvim-lspconfig",
+    config = setup_null_ls,
   }
 }
