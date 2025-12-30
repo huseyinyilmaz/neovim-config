@@ -11,16 +11,8 @@ local setup_cmp = function()
       -- Accept currently selected item. If none selected, `select` first item.
       -- Set `select` to `false` to only confirm explicitly selected items.
       ["<CR>"] = cmp.mapping.confirm { select = true },
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        else
-          fallback()
-        end
-      end, {
-        "i",
-        "s",
-      }),
+      -- Tab key intentionally unmapped by user request, to allow Copilot to accept completions with Tab.
+-- ["<Tab>"]: nvim-cmp navigation removed here.
       ["<S-Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()

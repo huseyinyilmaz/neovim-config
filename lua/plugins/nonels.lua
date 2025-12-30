@@ -25,7 +25,8 @@ local setup_null_ls = function()
       -- null_ls.builtins.diagnostics.shellcheck,
       -- formatting.shellharden,
       -- go-lang
-      -- formatting.gofmt,
+      formatting.gofmt,
+      formatting.goimports,
       --
       -- python
       formatting.black.with { extra_args = { "--fast" } },

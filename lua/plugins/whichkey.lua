@@ -31,6 +31,17 @@ local normal_mode_mappings = {
   {"<leader>f", "<cmd>Telescope file_browser theme=ivy<cr>", desc="File Browser" },
   {"<leader>F", "<cmd>Telescope find_files theme=ivy<cr>", desc="Find files" },
 
+  {"<leader>d", group="Debugger"},
+  { "<leader>dt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", desc="Toggle Breakpoint" },
+  { "<leader>dr", "<cmd>lua require'dap'.run_to_cursor()<cr>", desc="Run To Cursor" },
+  { "<leader>dR", "<cmd>lua require'dap'.restart()<cr>", desc="Restart" },
+  { "<leader>dT", "<cmd>lua require'dap'.terminate()<cr>", desc="Terminate" },
+  { "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", desc="Continue" },
+  { "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", desc="Step Over" },
+  { "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", desc="Step Into" },
+  { "<leader>dI", "<cmd>lua require'dap'.step_out()<cr>", desc="Step Out" },
+  { "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", desc="Debug UI" },
+  { "<leader>dp", "<cmd>lua require'dap'.pause()<cr>", desc="Pause" },
   -- LSP
   {"<leader>l", group="LSP"},
   { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc="Code Action" },
@@ -86,9 +97,7 @@ local normal_mode_mappings = {
   { '<leader>oy', function() require('opencode').command('messages_copy') end, desc = 'Copy last message', },
   { '<S-C-u>',    function() require('opencode').command('messages_half_page_up') end, desc = 'Scroll messages up', },
   { '<S-C-d>',    function() require('opencode').command('messages_half_page_down') end, desc = 'Scroll messages down', },
-
 }
-
 
 local virtual_mode_mappings = {
 
@@ -102,6 +111,12 @@ local virtual_mode_mappings = {
   { '<leader>op', function() require('opencode').select_prompt() end, desc='Select prompt' },
 }
 
+-- Insert mode: Copilot Accept Alt-Enter
+local insert_mode_mappings = {
+  -- Mapping updated: Tab now triggers Copilot accept by user request.
+  -- Note: nvim-cmp Tab navigation was disabled.
+ -- { "<Tab>", "copilot#Accept('<CR>')", desc = "Copilot Accept", expr = true, silent = true }
+}
 
 local setup = function()
   vim.o.timeout = true
@@ -132,10 +147,18 @@ local setup = function()
     nowait = true,  -- use `nowait` when creating keymaps
   }
 
+  local insert_mode_opts = {
+    mode = "i",
+    buffer = nil,
+    silent = true,
+    noremap = true,
+    nowait = true,
+  }
+
   which_key.add(normal_mode_mappings, normal_mode_opts)
   which_key.add(virtual_mode_mappings, virtual_mode_opts)
+  which_key.add(insert_mode_mappings, insert_mode_opts)
 end
-
 
 return {
   "folke/which-key.nvim",
