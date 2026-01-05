@@ -1,4 +1,7 @@
 local harpoon = require("harpoon")
+local dap = require("dap")
+local dapui = require("dapui")
+
 local normal_mode_mappings = {
   -- tabline shortcuts
   { "<S-l>", "<cmd>BufferLineCycleNext<CR>", desc="Next Buffer" },
@@ -32,16 +35,18 @@ local normal_mode_mappings = {
   {"<leader>F", "<cmd>Telescope find_files theme=ivy<cr>", desc="Find files" },
 
   {"<leader>d", group="Debugger"},
-  { "<leader>dt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", desc="Toggle Breakpoint" },
-  { "<leader>dr", "<cmd>lua require'dap'.run_to_cursor()<cr>", desc="Run To Cursor" },
-  { "<leader>dR", "<cmd>lua require'dap'.restart()<cr>", desc="Restart" },
-  { "<leader>dT", "<cmd>lua require'dap'.terminate()<cr>", desc="Terminate" },
-  { "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", desc="Continue" },
-  { "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", desc="Step Over" },
-  { "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", desc="Step Into" },
-  { "<leader>dI", "<cmd>lua require'dap'.step_out()<cr>", desc="Step Out" },
-  { "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", desc="Debug UI" },
-  { "<leader>dp", "<cmd>lua require'dap'.pause()<cr>", desc="Pause" },
+  { "<leader>dt", function() dap.toggle_breakpoint() end, desc="Toggle Breakpoint" },
+  { "<leader>dT", function() require("dap.repl").toggle() end, desc="Toggle REPL" },
+  { "<leader>dr", function() dap.run_to_cursor() end, desc="Run To Cursor" },
+  { "<leader>dR", function() dap.restart() end, desc="Restart" },
+  { "<leader>dQ", function() dap.terminate() end, desc="Terminate" },
+  { "<leader>dc", function() dap.continue() end, desc="Continue" },
+  { "<leader>dn", function() dap.step_over() end, desc="Next (Step Over)" },
+  { "<leader>do", function() dap.step_over() end, desc="Step Over" },
+  { "<leader>di", function() dap.step_into() end, desc="Step Into" },
+  { "<leader>dI", function() dap.step_out() end, desc="Step Out" },
+  { "<leader>dp", function() dap.pause() end, desc="Pause" },
+  { "<leader>du", function() dapui.toggle() end, desc="DAP UI Toggle" },
   -- LSP
   {"<leader>l", group="LSP"},
   { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc="Code Action" },
