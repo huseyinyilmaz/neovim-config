@@ -1,3 +1,8 @@
 return {
-    'github/copilot.vim',
-  }
+	"github/copilot.vim",
+	config = function()
+		-- Enable copilot
+		vim.g.copilot_no_tab_map = true
+		vim.api.nvim_set_keymap("i", "<C-Space>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+	end,
+}

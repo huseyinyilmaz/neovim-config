@@ -13,3 +13,9 @@ To Install
 ```
 ❯ git clone git@github.com:huseyinyilmaz/neovim-config.git ~/.config/nvim
 ```
+
+
+Other Resources:
+---------------
+
+https://github.com/sadiksaifi/nvim
