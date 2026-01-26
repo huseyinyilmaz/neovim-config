@@ -17,6 +17,8 @@ local normal_mode_mappings = {
   { "K", "<cmd>lua vim.lsp.buf.hover()<CR>", desc="Show Type Info" },
   { "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc="Show Signature Help" },
 
+
+  {"g", group="Go to..."},
   { "gq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc="Show All LSP Errors" },
   { "gl", '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<cr>', desc="Show Diagnostics" },
   { "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc="Go to Definition" },
@@ -29,10 +31,11 @@ local normal_mode_mappings = {
   {"<leader>h", "<cmd>nohlsearch<CR>", desc="No Highlight" },
   {"<leader>H", "<cmd>checkhealth<CR>", desc="Check Health" },
 
-  {"<leader>e", "<cmd>NvimTreeToggle<cr>", desc="Explorer" },
-  {"<leader>E", "<cmd>Telescope live_grep theme=ivy<cr>", desc="Find Text" },
-  {"<leader>f", "<cmd>Telescope file_browser theme=ivy<cr>", desc="File Browser" },
-  {"<leader>F", "<cmd>Telescope find_files theme=ivy<cr>", desc="Find files" },
+  {"<leader>t", group="Nvim Tree"},
+  {"<leader>tt", "<cmd>NvimTreeToggle<cr>", desc="Toggle Tree" },
+  {"<leader>tr", "<cmd>NvimTreeRefresh<cr>", desc="Refresh Tree" },
+  {"<leader>ts", "<cmd>NvimTreeFindFile<cr>", desc="Find File In Tree" },
+  {"<leader>tc", "<cmd>NvimTreeCollapse<cr>", desc="Collapse Tree" },
 
   {"<leader>d", group="Debugger"},
   { "<leader>dt", function() dap.toggle_breakpoint() end, desc="Toggle Breakpoint" },
@@ -56,7 +59,6 @@ local normal_mode_mappings = {
   {"<leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", desc="Format" },
   {"<leader>li", "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>", desc="Toggle Inlay Hints" },
   {"<leader>lI", "<cmd>LspInfo<cr>", desc="LSP Info" },
-  -- I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
   {"<leader>lj", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", desc="Next Diagnostic" },
   {"<leader>lk", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", desc="Prev Diagnostic" },
   {"<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", desc="CodeLens Action" },
@@ -68,7 +70,13 @@ local normal_mode_mappings = {
 
   -- Search
   {"<leader>s", group="Search"},
-  {"<leader>sb", "<cmd>Telescope git_branches<cr>", desc="Checkout branch" },
+  -- Search text
+  {"<leader>ss", "<cmd>Telescope live_grep theme=ivy<cr>", desc="Find Text" },
+  -- Search files
+  {"<leader>sf", "<cmd>Telescope find_files theme=ivy<cr>", desc="Find files" },
+  {"<leader>sF", "<cmd>Telescope file_browser theme=ivy<cr>", desc="File Browser" },
+  {"<leader>sb", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc="Find Buffer" },
+  {"<leader>sgb", "<cmd>Telescope git_branches<cr>", desc="Checkout branch" },
   {"<leader>sc", "<cmd>Telescope colorscheme<cr>", desc="Colorscheme" },
   {"<leader>sh", "<cmd>Telescope help_tags<cr>", desc="Find Help" },
   {"<leader>sH", "<cmd>Telescope harpoon marks<cr>", desc="Harpoon Marks" },
