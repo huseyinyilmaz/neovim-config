@@ -1,19 +1,19 @@
 local lspconfig = require("lspconfig")
 local utils = require("plugins.lsp.handlers.utils")
 
-local	settings = {
-		Lua = {
-			diagnostics = {
-				globals = { "vim" },
-			},
-			workspace = {
-				library = {
-					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-					[vim.fn.stdpath("config") .. "/lua"] = true,
-				},
-			},
-		},
-	}
+local settings = {
+  Lua = {
+    diagnostics = {
+      globals = { "vim" },
+    },
+    workspace = {
+      library = {
+        vim.env.VIMRUNTIME .. "/lua",
+        vim.fn.stdpath("config") .. "/lua",
+      },
+    },
+  },
+}
 
 local opts = {
   on_attach = utils.on_attach,
@@ -22,7 +22,5 @@ local opts = {
 }
 
 return function()
-  local handler_name = 'lua_ls'
-  lspconfig[handler_name].setup(opts)
-  print('Custom lsp initialization is complete: ' .. handler_name)
+  lspconfig.lua_ls.setup(opts)
 end

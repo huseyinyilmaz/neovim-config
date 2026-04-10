@@ -28,15 +28,12 @@ local setup_gitsigns = function()
       interval = 1000,
       follow_files = true
     },
-    attach_to_untracked          = true,
     current_line_blame           = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
     current_line_blame_opts      = {
       virt_text = true,
       virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
       delay = 500,
       ignore_whitespace = true,
-      virt_text_style = 'bold',
-      hl = 'GitSignsCurrentLineBlame',
     },
     current_line_blame_formatter = '     <author_time:%R>, (<author>) - <summary>',
     sign_priority                = 6,

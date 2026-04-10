@@ -2,6 +2,11 @@ local setup_cmp = function()
 	local cmp = require("cmp")
 
 	cmp.setup({
+		snippet = {
+			expand = function(args)
+				vim.snippet.expand(args.body) -- Neovim 0.12 built-in snippet engine
+			end,
+		},
 		mapping = {
 			["<C-k>"] = cmp.mapping.select_prev_item(),
 			["<C-j>"] = cmp.mapping.select_next_item(),
@@ -38,8 +43,6 @@ local setup_cmp = function()
 			format = function(entry, vim_item)
 				vim_item.menu = ({
 					nvim_lsp = "[LSP]",
-					nvim_lua = "[NVIM_LUA]",
-					luasnip = "[Snippet]",
 					buffer = "[Buffer]",
 					path = "[Path]",
 				})[entry.source.name]
@@ -48,8 +51,6 @@ local setup_cmp = function()
 		},
 		sources = {
 			{ name = "nvim_lsp" },
-			{ name = "nvim_lua" },
-			{ name = "luasnip" },
 			{ name = "buffer" },
 			{ name = "path" },
 		},
@@ -61,10 +62,8 @@ return {
 	dependencies = {
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
-		"hrsh7th/cmp-nvim-lua",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-cmdline",
-		"saadparwaiz1/cmp_luasnip",
 	},
 	event = "VeryLazy",
 	config = setup_cmp,

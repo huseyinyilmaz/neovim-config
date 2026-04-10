@@ -2,12 +2,14 @@ local lspconfig = require("lspconfig")
 local utils = require("plugins.lsp.handlers.utils")
 
 local	settings = {
-  usePlaceholders = true,
-  completeUnimported = true,
-  analyses = {
-    unusedparams = true,
-    shadow = true,
-	}
+  gopls = {
+    usePlaceholders = true,
+    completeUnimported = true,
+    analyses = {
+      unusedparams = true,
+      shadow = true,
+    },
+  },
 }
 
 
@@ -21,7 +23,5 @@ local opts = {
 }
 
 return function()
-  local handler_name = "gopls"
-  lspconfig[handler_name].setup(opts)
-  print("Custom lsp initialization is complete: " .. handler_name)
+  lspconfig.gopls.setup(opts)
 end

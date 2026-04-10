@@ -176,20 +176,8 @@ local opts = {
       schemas = schemas,
     },
   },
-
-  setup = {
-    commands = {
-      Format = {
-        function()
-          vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line "$", 0 })
-        end,
-      },
-    },
-  },
 }
 
 return function()
-  local handler_name = 'jsonls'
-  lspconfig[handler_name].setup(opts)
-  print('Custom lsp initialization is complete: ' .. handler_name)
+  lspconfig.jsonls.setup(opts)
 end

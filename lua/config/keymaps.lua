@@ -1,16 +1,8 @@
 local opts = { noremap = true, silent = true }
 
-local term_opts = { silent = true }
-
--- Shorten function name
-local keymap = vim.api.nvim_set_keymap
-
---Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
+-- Remap space as leader key (leader is set in config/lazy.lua)
+vim.keymap.set("", "<Space>", "<Nop>", opts)
 
 -- Insert --
--- Press jk fast to enter
-keymap("i", "jk", "<ESC>", opts)
+-- Press jk fast to exit insert mode
+vim.keymap.set("i", "jk", "<ESC>", { noremap = true, silent = true, desc = "Exit insert mode" })

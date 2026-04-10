@@ -1,72 +1,76 @@
+-- nvim-treesitter is used ONLY as a parser installer in Neovim 0.12+.
+-- Highlighting, indentation, and folding are handled by Neovim's built-in
+-- treesitter integration. See globals.lua for the built-in treesitter settings.
 return {
-  "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",
-  dependencies = {
-    "nvim-treesitter/playground",
-    "nvim-treesitter/nvim-treesitter-refactor",
-    "nvim-treesitter/nvim-treesitter-textobjects",
-  },
-  config = function()
-    require("nvim-treesitter.configs").setup {
-      ensure_installed = "all",
-      ignore_install = {"ipkg"},
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = { "org" },
-      },
-      indent = {
-        enable = true,
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "gnn",
-          node_incremental = "grn",
-          scope_incremental = "grc",
-          node_decremental = "grm",
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-refactor",
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
+    config = function()
+      require("nvim-treesitter.configs").setup {
+        ensure_installed = {
+          -- Languages with active LSP/tooling
+          "go", "gomod", "gosum", "gowork", "gotmpl",
+          "python",
+          "rust",
+          "json", "jsonc",
+          "yaml",
+          -- Web
+          "javascript", "typescript", "html", "css",
+          -- Shell
+          "bash",
+          -- Config/Data
+          "toml", "dockerfile", "http",
+          -- Neovim (luadoc is not bundled)
+          "luadoc",
+          -- Git
+          "gitcommit", "diff",
         },
-      },
-      refactor = {
-        highlight_definitions = { enable = true },
-        smart_rename = {
-          enable = false,
-          keymaps = {
-            smart_rename = "CR",
-          },
-        },
-      },
-      textobjects = {
-        select = {
+        -- FIXME: Neovim 0.12 bundles its own parsers for these languages.
+        -- The nvim-treesitter plugin versions conflict with the bundled
+        -- runtime queries and cause 'range' nil crashes. Skip them so
+        -- Neovim uses its own matched parser+query set.
+        ignore_install = { "c", "lua", "vim", "vimdoc", "markdown", "markdown_inline", "query" },
+
+        -- Highlighting and indentation are built into Neovim 0.12 -- disable here.
+        highlight = { enable = false },
+        indent = { enable = false },
+
+        -- Incremental selection: expand/shrink by treesitter node
+        incremental_selection = {
           enable = true,
-          lookahead = true,
           keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@conditional.outer",
-            ["ic"] = "@conditional.inner",
-            ["al"] = "@loop.outer",
-            ["il"] = "@loop.inner",
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
           },
         },
-      },
-      playground = {
-        enable = true,
-        disable = {},
-        updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
-        persist_queries = false, -- Whether the query persists across vim sessions
-        keybindings = {
-          toggle_query_editor = "o",
-          toggle_hl_groups = "i",
-          toggle_injected_languages = "t",
-          toggle_anonymous_nodes = "a",
-          toggle_language_display = "I",
-          focus_language = "f",
-          unfocus_language = "F",
-          update = "R",
-          goto_node = "<cr>",
-          show_help = "?",
+
+        -- Textobjects: function, conditional, loop selections
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@conditional.outer",
+              ["ic"] = "@conditional.inner",
+              ["al"] = "@loop.outer",
+              ["il"] = "@loop.inner",
+            },
+          },
         },
-      },
-    }
-  end,
+
+        -- Refactor: highlight definitions under cursor
+        refactor = {
+          highlight_definitions = { enable = true },
+        },
+      }
+    end,
+  },
 }

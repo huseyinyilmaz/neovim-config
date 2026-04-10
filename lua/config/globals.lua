@@ -37,7 +37,7 @@ vim.opt.smartindent = true -- make indenting smarter again
 vim.opt.splitbelow = true -- force all horizontal splits to go below current window
 vim.opt.splitright = true -- force all vertical splits to go to the right of current window
 vim.opt.swapfile = false -- creates a swapfile
-vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
+-- vim.opt.termguicolors is enabled by default in Neovim 0.12+
 vim.opt.timeoutlen = 1000 -- time to wait for a mapped sequence to complete (in milliseconds)
 vim.opt.undofile = true -- enable persistent undo
 vim.opt.updatetime = 300 -- faster completion (4000ms default)
@@ -57,9 +57,39 @@ vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applicati
 
 vim.opt.shortmess:append("c")
 
-vim.cmd("set whichwrap+=<,>,[,],h,l")
-vim.opt.exrc = true -- load .nvimrc/.exrc
-vim.opt.secure = true -- do not allow shell and write commands in .nvimrc/.exrc
+vim.opt.whichwrap:append("<,>,[,],h,l")
+vim.opt.exrc = true -- load .nvim.lua/.nvimrc/.exrc (trust-based in 0.12+)
 
 -- vim.cmd [[set iskeyword+=-]]   -- This lets - character not seperate words. so dw would delete all word and not the word upto - character.
 -- vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
+
+-- Neovim 0.12 auto-enables treesitter highlighting for bundled parsers
+-- (lua, vim, vimdoc, markdown, c, query). For plugin-installed parsers
+-- (go, python, rust, etc.) we need to enable it manually. We defer via
+-- vim.schedule to avoid a race condition in Neovim's async treesitter
+-- parsing that causes 'attempt to call method range (a nil value)'.
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function(args)
+    local buf = args.buf
+    -- Skip if treesitter highlighting is already active (bundled parsers)
+    if vim.treesitter.highlighter.active[buf] then
+      return
+    end
+    -- Check if a parser exists for this filetype's language
+    local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
+    if not lang then
+      return
+    end
+    local ok = pcall(vim.treesitter.language.inspect, lang)
+    if not ok then
+      return
+    end
+    -- Defer to avoid race with async treesitter parsing
+    vim.schedule(function()
+      if vim.api.nvim_buf_is_valid(buf) and not vim.treesitter.highlighter.active[buf] then
+        pcall(vim.treesitter.start, buf, lang)
+      end
+    end)
+  end,
+})
+

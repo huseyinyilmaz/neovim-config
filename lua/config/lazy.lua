@@ -21,6 +21,10 @@ require("lazy").setup({
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "habamax" } },
-  -- automatically check for plugin updates
-  checker = { enabled = true },
+  -- FIXME: Disabled — lazy.nvim's background checker uses vim.wait() which
+  -- processes vim.schedule callbacks, triggering a Neovim 0.12 treesitter
+  -- bug ('attempt to call method range (a nil value)' in languagetree.lua).
+  -- This is a Neovim core bug, not a parser conflict. Use :Lazy check manually.
+  -- Track: https://github.com/neovim/neovim/issues/ (treesitter async parsing)
+  checker = { enabled = false },
 })

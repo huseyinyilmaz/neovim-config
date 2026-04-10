@@ -16,7 +16,5 @@ local opts = {
 }
 
 return function()
-  local handler_name = 'pyright'
-  lspconfig[handler_name].setup(opts)
-  print('Custom lsp initialization is complete: ' .. handler_name)
+  lspconfig.pyright.setup(opts)
 end

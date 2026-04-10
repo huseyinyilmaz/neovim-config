@@ -41,6 +41,7 @@ end
 
 return {
     "nvimtools/none-ls.nvim",
-    after = "nvim-lspconfig",
+    dependencies = { "neovim/nvim-lspconfig" },
+    event = { "BufReadPre", "BufNewFile" },
     config = setup_null_ls,
 }

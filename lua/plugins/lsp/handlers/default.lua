@@ -9,5 +9,4 @@ local opts = {
 return function(handler_name)
   lspconfig[handler_name].setup(opts)
   utils.setup()
-  print('Default lsp initialization is complete: ' .. handler_name)
 end
