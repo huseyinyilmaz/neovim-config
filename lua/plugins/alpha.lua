@@ -1,6 +1,6 @@
 -- https://github.com/goolord/alpha-nvim
 local setup = function()
-  local alpha = require('alpha')
+  local alpha = require("alpha")
   local dashboard = require("alpha.themes.dashboard")
   dashboard.section.header.val = {
     [[                               __                ]],
@@ -34,10 +34,9 @@ local setup = function()
   alpha.setup(dashboard.opts)
 end
 
-
 return {
   "goolord/alpha-nvim",
-  event = 'VimEnter',
+  event = "VimEnter",
   config = setup,
-  dependencies = { {'nvim-tree/nvim-web-devicons'}}
+  dependencies = { { "nvim-tree/nvim-web-devicons" } },
 }

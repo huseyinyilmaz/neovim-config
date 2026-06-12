@@ -46,26 +46,35 @@ nvim --headless -c 'lua print("OK")' -c 'qa'
 # stylua is the Lua formatter; runs on save via none-ls
 # Other formatters: gofmt, goimports (Go), black, isort (Python)
 
-# Treesitter parser management
-:TSUpdate              # Update all installed parsers
-:TSInstall <lang>      # Install a specific parser
+# Treesitter parser management (nvim-treesitter `main` branch)
+:TSUpdate              # Update installed parsers per manifest
+:TSInstall <lang>      # Install a parser (queries auto-included)
+:TSUninstall <lang>    # Remove a parser
+:TSLog                 # View last install/update output
+:checkhealth nvim-treesitter   # Verify install state
 ```
 
-## Neovim 0.12 Constraints
+## Neovim 0.12 Notes
 
-This config includes workarounds for Neovim 0.12 treesitter bugs:
+This config targets **Neovim 0.12.x** and uses the `main` branch of
+`nvim-treesitter` (the Nvim 0.12+ rewrite). Notes:
 
-- **Bundled parsers** (c, lua, vim, vimdoc, markdown, markdown_inline, query)
-  must NOT be installed via nvim-treesitter — they conflict with Neovim's
-  bundled runtime queries. They are in `ignore_install` in `treesitter.lua`.
-- **Neovim auto-enables treesitter highlighting** for bundled parsers via
-  ftplugins. The `FileType` autocmd in `globals.lua` only activates
-  highlighting for plugin-installed parsers (go, python, rust, etc.).
-- **lazy.nvim's background checker** is disabled because `vim.wait()` triggers
-  an async treesitter parsing race condition. Use `:Lazy check` manually.
-- **Runtime patches** exist in `runtime/lua/vim/treesitter.lua` and
-  `runtime/lua/vim/treesitter/languagetree.lua` to guard against nil/stale
-  TSNode userdata. These will be overwritten on Neovim updates.
+- **Neovim auto-enables treesitter highlighting** for bundled parsers
+  (c, lua, vim, vimdoc, markdown, markdown_inline, query) via ftplugins.
+  For all other languages, the generic `FileType` autocmd in
+  `lua/config/globals.lua` calls `vim.treesitter.start` once a parser
+  becomes available.
+- **`tree-sitter-cli` is required** by the `main` branch (≥ 0.26.1).
+  Install the precompiled binary from
+  https://github.com/tree-sitter/tree-sitter/releases (asset
+  `tree-sitter-cli-linux-x64.zip`) and place `tree-sitter` somewhere on
+  PATH (e.g., `/root/bin/`). Do **not** install via npm.
+- **Adding a new language**: run `:TSInstall <lang>` from inside Neovim.
+  Parsers and queries land under `~/.local/share/nvim/site/`. The generic
+  `FileType` autocmd then activates highlighting on the next buffer of
+  that filetype. For languages not in the manifest (private grammars,
+  brand-new languages), register them via a `User TSUpdate` autocmd —
+  see the `nvim-treesitter` `main` branch README.
 
 ## Code Style Guidelines
 
@@ -145,8 +154,8 @@ end
   declarative table format — not scattered across plugin files.
 - Leader key is `<Space>`, set in `config/lazy.lua`.
 - Groups: `<leader>a` (Alpha), `<leader>c` (close), `<leader>d` (debug),
-  `<leader>l` (LSP), `<leader>s` (search/telescope), `<leader>m` (harpoon),
-  `<leader>o` (OpenCode), `<leader>t` (tree).
+  `<leader>l` (LSP), `<leader>s` (search/telescope),
+  `<leader>o` (OpenCode), `<leader>t` (tree), `<leader>R` (Rest/kulala).
 - Use `vim.keymap.set()` for keymaps inside plugin `on_attach` or `config`.
 - Always include `desc = "..."` for discoverability.
 

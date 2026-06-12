@@ -1,7 +1,7 @@
 local lspconfig = require("lspconfig")
 local utils = require("plugins.lsp.handlers.utils")
 
-local	settings = {
+local settings = {
   gopls = {
     usePlaceholders = true,
     completeUnimported = true,
@@ -11,7 +11,6 @@ local	settings = {
     },
   },
 }
-
 
 local opts = {
   on_attach = utils.on_attach,

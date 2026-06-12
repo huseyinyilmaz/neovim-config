@@ -2,7 +2,7 @@ return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
-    require("lualine").setup {
+    require("lualine").setup({
       options = {
         theme = "auto",
         -- theme = "bluloco",
@@ -12,7 +12,7 @@ return {
       extensions = { "quickfix", "fugitive" },
       sections = {
         lualine_a = { { "mode", upper = true } },
-        lualine_b = { { "branch", icon = "" }, "db_ui#statusline" },
+        lualine_b = { { "branch", icon = "" } },
         lualine_c = { { "filename", file_status = true, path = 1 } },
         lualine_x = {
           "diagnostics",
@@ -26,6 +26,6 @@ return {
         lualine_y = { "filetype" },
         lualine_z = { "location" },
       },
-    }
+    })
   end,
 }

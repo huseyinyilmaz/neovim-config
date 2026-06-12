@@ -1,6 +1,5 @@
 local M = {}
 
--- TODO: backfill this to template
 M.setup = function()
   -- In Neovim 0.12+, use vim.diagnostic.config for signs instead of vim.fn.sign_define
   vim.diagnostic.config({
@@ -21,15 +20,32 @@ M.setup = function()
 end
 
 M.on_attach = function(client, bufnr)
-  -- Use the modern server_capabilities field name
-  if client.name == "tsserver" or client.name == "eslint" then
-    client.server_capabilities.documentFormattingProvider = false
+  if client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable(true, {
+      bufnr = bufnr,
+    })
   end
 
-  if client.server_capabilities.inlayHintProvider then
-      vim.lsp.inlay_hint.enable(true, {
-          bufnr = bufnr,
-      })
+  -- Highlight references of symbol under cursor (LSP-based replacement for
+  -- nvim-treesitter-refactor.highlight_definitions, which we no longer use).
+  if client.server_capabilities.documentHighlightProvider then
+    local group = vim.api.nvim_create_augroup("lsp_document_highlight_" .. bufnr, { clear = true })
+    vim.api.nvim_create_autocmd("CursorHold", {
+      group = group,
+      buffer = bufnr,
+      callback = function()
+        pcall(vim.lsp.buf.document_highlight)
+      end,
+      desc = "LSP: highlight references under cursor",
+    })
+    vim.api.nvim_create_autocmd("CursorMoved", {
+      group = group,
+      buffer = bufnr,
+      callback = function()
+        pcall(vim.lsp.buf.clear_references)
+      end,
+      desc = "LSP: clear reference highlights",
+    })
   end
 end
 

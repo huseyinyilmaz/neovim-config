@@ -2,13 +2,13 @@ return {
   "akinsho/bufferline.nvim",
   priority = 9999,
   config = function()
-    require('bufferline').setup({
+    require("bufferline").setup({
       options = {
         numbers = "ordinal",
         max_name_length = 40,
         max_prefix_length = 40, -- prefix used when a buffer is de-duplicated
         truncate_names = false,
-      }
+      },
     })
   end,
 }

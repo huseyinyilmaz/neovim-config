@@ -1,23 +1,27 @@
 return {
-  'NickvanDyke/opencode.nvim',
-  dependencies = { 'folke/snacks.nvim', },
-  ---@type opencode.Config
-  opts = {
-    mode = 'plan',
-    -- Your configuration, if any
-  },
-  config = function(_, opts)
-    -- require('opencode').setup(opts)
+  "sudo-tee/opencode.nvim",
+  config = function()
+    require("opencode").setup({
+      ui = {
+        zoom_width = 1, -- Zoom width as percentage of editor width
+
+        questions = {
+          use_vim_ui_select = true, -- If true, render questions/prompts with vim.ui.select instead of showing them inline in the output buffer.
+        },
+      },
+    })
   end,
-  -- stylua: ignore
-  -- keys = {
-  --   { '<leader>ot', function() require('opencode').toggle() end, desc = 'Toggle embedded opencode', },
-  --   { '<leader>oa', function() require('opencode').ask() end, desc = 'Ask opencode', mode = 'n', },
-  --   { '<leader>oa', function() require('opencode').ask('@selection: ') end, desc = 'Ask opencode about selection', mode = 'v', },
-  --   { '<leader>op', function() require('opencode').select_prompt() end, desc = 'Select prompt', mode = { 'n', 'v', }, },
-  --   { '<leader>on', function() require('opencode').command('session_new') end, desc = 'New session', },
-  --   { '<leader>oy', function() require('opencode').command('messages_copy') end, desc = 'Copy last message', },
-  --   { '<S-C-u>',    function() require('opencode').command('messages_half_page_up') end, desc = 'Scroll messages up', },
-  --   { '<S-C-d>',    function() require('opencode').command('messages_half_page_down') end, desc = 'Scroll messages down', },
-  -- },
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    {
+      "MeanderingProgrammer/render-markdown.nvim",
+      opts = {
+        anti_conceal = { enabled = false },
+        file_types = { "markdown", "opencode_output" },
+      },
+      ft = { "markdown", "Avante", "copilot-chat", "opencode_output" },
+    },
+    "hrsh7th/nvim-cmp",
+    "folke/snacks.nvim",
+  },
 }
