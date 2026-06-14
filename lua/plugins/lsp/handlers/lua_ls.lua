@@ -1,26 +1,21 @@
-local lspconfig = require("lspconfig")
 local utils = require("plugins.lsp.handlers.utils")
 
-local settings = {
-  Lua = {
-    diagnostics = {
-      globals = { "vim" },
-    },
-    workspace = {
-      library = {
-        vim.env.VIMRUNTIME .. "/lua",
-        vim.fn.stdpath("config") .. "/lua",
+return function()
+  vim.lsp.config("lua_ls", {
+    on_attach = utils.on_attach,
+    capabilities = utils.capabilities,
+    settings = {
+      Lua = {
+        runtime = { version = "LuaJIT" },
+        diagnostics = { globals = { "vim" } },
+        workspace = {
+          library = {
+            vim.fn.stdpath("config") .. "/lua",
+            vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua",
+          },
+          checkThirdParty = false,
+        },
       },
     },
-  },
-}
-
-local opts = {
-  on_attach = utils.on_attach,
-  capabilities = utils.capabilities,
-  settings = settings,
-}
-
-return function()
-  lspconfig.lua_ls.setup(opts)
+  })
 end

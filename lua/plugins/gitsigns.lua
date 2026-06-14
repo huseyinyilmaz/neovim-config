@@ -38,36 +38,7 @@ local setup_gitsigns = function()
       row = 0,
       col = 1,
     },
-    on_attach = function(bufnr)
-      local gs = package.loaded.gitsigns
 
-      local function map(mode, l, r, opts)
-        opts = opts or {}
-        opts.buffer = bufnr
-        vim.keymap.set(mode, l, r, opts)
-      end
-
-      -- Navigation
-      map("n", "gnc", function()
-        if vim.wo.diff then
-          return "gnc"
-        end
-        vim.schedule(function()
-          gs.next_hunk()
-        end)
-        return "<Ignore>"
-      end, { expr = true })
-
-      map("n", "gpc", function()
-        if vim.wo.diff then
-          return "gpc"
-        end
-        vim.schedule(function()
-          gs.prev_hunk()
-        end)
-        return "<Ignore>"
-      end, { expr = true })
-    end,
   })
 end
 

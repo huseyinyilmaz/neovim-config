@@ -21,7 +21,6 @@ return {
       },
       ft = { "markdown", "Avante", "copilot-chat", "opencode_output" },
     },
-    "hrsh7th/nvim-cmp",
     "folke/snacks.nvim",
   },
 }

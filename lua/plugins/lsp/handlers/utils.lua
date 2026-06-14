@@ -19,15 +19,24 @@ M.setup = function()
   })
 end
 
+M.setup_completion = function(client, bufnr)
+  if client.server_capabilities.completionProvider then
+    vim.lsp.completion.enable(true, client.id, bufnr, {
+      autotrigger = true,
+    })
+  end
+end
+
 M.on_attach = function(client, bufnr)
+  M.setup_completion(client, bufnr)
+
   if client.server_capabilities.inlayHintProvider then
     vim.lsp.inlay_hint.enable(true, {
       bufnr = bufnr,
     })
   end
 
-  -- Highlight references of symbol under cursor (LSP-based replacement for
-  -- nvim-treesitter-refactor.highlight_definitions, which we no longer use).
+  -- Highlight references of symbol under cursor.
   if client.server_capabilities.documentHighlightProvider then
     local group = vim.api.nvim_create_augroup("lsp_document_highlight_" .. bufnr, { clear = true })
     vim.api.nvim_create_autocmd("CursorHold", {
@@ -49,10 +58,6 @@ M.on_attach = function(client, bufnr)
   end
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
-M.capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
 return M

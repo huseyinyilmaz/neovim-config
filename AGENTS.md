@@ -1,191 +1,86 @@
 # AGENTS.md — Neovim Config (Neovim 0.12+)
 
-Personal Neovim configuration using lazy.nvim as plugin manager, targeting
-**Neovim 0.12.x**. Primary development languages: Go and Python.
+Personal config using lazy.nvim, targeting **Neovim 0.12.x**. Go and Python dev.
 
 ## Repository Structure
 
 ```
-init.lua                        # Entry point: globals → keymaps → lazy
+init.lua                           # Entry point: globals → keymaps → lazy
 lua/
   config/
-    globals.lua                 # vim.opt settings, treesitter autocmd
-    keymaps.lua                 # Minimal global keymaps (jk, Space)
-    lazy.lua                    # lazy.nvim bootstrap and setup
-  plugins/                      # One file per plugin (lazy.nvim specs)
+    globals.lua                    # vim.opt, treesitter autocmd, PUM keymaps
+    keymaps.lua                    # Minimal global keymaps (jk, Space)
+    lazy.lua                       # lazy.nvim bootstrap
+  plugins/                         # One file per plugin (lazy.nvim spec)
     lsp/
-      init.lua                  # Mason + mason-lspconfig specs
+      init.lua                     # Mason + mason-lspconfig + calls handlers directly
       handlers/
-        init.lua                # Barrel module re-exporting all handlers
-        utils.lua               # Shared on_attach, capabilities, diagnostics
-        default.lua             # Fallback handler for unlisted LSP servers
-        gopls.lua               # Go LSP config
-        pyright.lua             # Python LSP config
-        jsonls.lua              # JSON LSP config (with schema store)
-        lua_ls.lua              # Lua LSP config (vim-aware)
+        init.lua                   # Barrel module
+        utils.lua                  # on_attach, capabilities, set_lsp_completion
+        default.lua                # Unused; kept for reference
+        gopls.lua                  # vim.lsp.config("gopls", ...)
+        pyright.lua                # vim.lsp.config("pyright", ...)
+        jsonls.lua                 # vim.lsp.config("jsonls", ...)
+        lua_ls.lua                 # vim.lsp.config("lua_ls", ...)
 ```
 
-## Build / Lint / Test Commands
+## Important Architecture Notes
 
-This is a Neovim config — there is no build system, test suite, or CI pipeline.
+- **LSP setup** uses Neovim 0.11+ `vim.lsp.config()` API, NOT the old `lspconfig.server.setup()`.
+  mason-lspconfig's `automatic_enable` (default on) calls `vim.lsp.enable()` for installed servers.
+  Handlers in `lsp/init.lua` register configs synchronously *before* the scheduled `enable_all()`.
+  See `lua/plugins/lsp/init.lua:10-15` and each handler file for the pattern.
+
+- **Keymaps live in which-key** (`lua/plugins/whichkey.lua`) using which-key's declarative table format.
+  Leader is `<Space>`, set in `config/lazy.lua`. Groups: `<leader>a` (Alpha), `<leader>c` (close),
+  `<leader>d` (debug), `<leader>g` (git), `<leader>l` (LSP), `<leader>s` (search),
+  `<leader>o` (Opencode), `<leader>t` (tree).
+
+## Commands
 
 ```bash
-# Validate config loads without errors
+# Validate config loads
 nvim --headless -c 'lua print("OK")' -c 'qa'
 
-# Run checkhealth (inside Neovim)
-:checkhealth
+# Plugin management
+:Lazy sync        # install/update/clean
+:Lazy check       # list available updates
 
-# Sync plugins (install/update/clean)
-:Lazy sync
+# Formatting (conform.nvim, runs on save)
+# Lua: stylua  |  Python: isort, black --fast  |  Go: goimports, gofmt
 
-# Check for plugin updates (background checker is disabled)
-:Lazy check
+# Treesitter (main branch, requires tree-sitter CLI >= 0.26.1)
+:TSInstall <lang>   # Add a parser (see manifest in treesitter.lua)
+:TSUpdate           # Update all installed parsers
+:checkhealth nvim-treesitter
 
-# Format Lua files (configured via none-ls)
-# stylua is the Lua formatter; runs on save via none-ls
-# Other formatters: gofmt, goimports (Go), black, isort (Python)
-
-# Treesitter parser management (nvim-treesitter `main` branch)
-:TSUpdate              # Update installed parsers per manifest
-:TSInstall <lang>      # Install a parser (queries auto-included)
-:TSUninstall <lang>    # Remove a parser
-:TSLog                 # View last install/update output
-:checkhealth nvim-treesitter   # Verify install state
+# LSP
+:LspRestart <server>
 ```
 
-## Neovim 0.12 Notes
+## Requirements
 
-This config targets **Neovim 0.12.x** and uses the `main` branch of
-`nvim-treesitter` (the Nvim 0.12+ rewrite). Notes:
+- **tree-sitter-cli >= 0.26.1** on PATH (install prebuilt binary from GitHub releases, NOT npm).
+- LSP servers installed via Mason (`:Mason`): gopls, pyright, jsonls, lua_ls, rust_analyzer, yamlls, golangci_lint_ls.
 
-- **Neovim auto-enables treesitter highlighting** for bundled parsers
-  (c, lua, vim, vimdoc, markdown, markdown_inline, query) via ftplugins.
-  For all other languages, the generic `FileType` autocmd in
-  `lua/config/globals.lua` calls `vim.treesitter.start` once a parser
-  becomes available.
-- **`tree-sitter-cli` is required** by the `main` branch (≥ 0.26.1).
-  Install the precompiled binary from
-  https://github.com/tree-sitter/tree-sitter/releases (asset
-  `tree-sitter-cli-linux-x64.zip`) and place `tree-sitter` somewhere on
-  PATH (e.g., `/root/bin/`). Do **not** install via npm.
-- **Adding a new language**: run `:TSInstall <lang>` from inside Neovim.
-  Parsers and queries land under `~/.local/share/nvim/site/`. The generic
-  `FileType` autocmd then activates highlighting on the next buffer of
-  that filetype. For languages not in the manifest (private grammars,
-  brand-new languages), register them via a `User TSUpdate` autocmd —
-  see the `nvim-treesitter` `main` branch README.
+## Treesitter
 
-## Code Style Guidelines
+Auto-enables highlighting for bundled parsers (c, lua, vim, vimdoc, markdown, etc.) via ftplugins.
+For other languages, a generic `FileType` autocmd in `globals.lua` calls `vim.treesitter.start`.
+Parser manifest is in `lua/plugins/treesitter.lua`.
 
-### Indentation and Formatting
+## Code Style (Lua)
 
-- **2 spaces**, tabs expanded (`expandtab`, `shiftwidth=2`, `tabstop=2`).
-- No enforced line length limit; keep lines under ~120 chars when practical.
-- No semicolons.
-- Use trailing commas in multi-line tables.
-- Format Lua with `stylua` (runs automatically via none-ls on save).
+- 2-space indent, double quotes, snake_case, trailing commas in multi-line tables.
+- No semicolons. No `assert()`/`error()` — use `pcall()` for optional features.
+- `local M = {}` / `return M` module pattern. `local setup_<name> = function()` for plugin config.
+- `-- FIXME:` for known workarounds. `-- TODO:` for planned changes.
+- Format with stylua (automatic via conform.nvim on save).
 
-### Strings and Quoting
-
-- Prefer **double quotes** for all strings: `"string"`.
-- `require` calls use double quotes with parentheses: `require("module")`.
-  - Exception: `init.lua` uses `require "config.globals"` (no parens).
-
-### Naming Conventions
-
-- **snake_case** for all variables, functions, and file names.
-- Module tables: uppercase `M` (`local M = {}` / `return M`).
-- Setup functions: `local setup_<plugin> = function() ... end`.
-- No camelCase for user-defined identifiers.
-
-### Module Patterns
-
-Plugin spec files return a lazy.nvim spec table (or list of tables):
-
-```lua
--- Simple plugin
-return {
-  "author/plugin.nvim",
-  event = "VeryLazy",
-}
-
--- Complex plugin with setup function defined above return
-local setup_foo = function()
-  require("foo").setup({ ... })
-end
-
-return {
-  "author/foo.nvim",
-  dependencies = { "dep/bar.nvim" },
-  config = setup_foo,
-}
-```
-
-LSP handler files return a **function** (called by mason-lspconfig):
-
-```lua
-local lspconfig = require("lspconfig")
-local utils = require("plugins.lsp.handlers.utils")
-
-return function()
-  lspconfig.server_name.setup({
-    on_attach = utils.on_attach,
-    capabilities = utils.capabilities,
-    settings = { ... },
-  })
-end
-```
-
-### Plugin Spec Conventions (lazy.nvim)
-
-- Use `config = named_function` for complex setup logic.
-- Use `opts = { ... }` for simple declarative config.
-- Use `config = function() ... end` for short inline setup (< 5 lines).
-- Specify `event`, `ft`, or `cmd` for lazy loading when appropriate.
-- Set `priority` only for colorscheme (1000) and bufferline (9999).
-- Set `lazy = false` only for the colorscheme (must load eagerly).
-- Dependencies go in `dependencies = { ... }`.
-- Build steps go in `build = "..."` (e.g., `:TSUpdate`, `make`).
-
-### Keymaps
-
-- Most keymaps are defined in `plugins/whichkey.lua` using which-key's
-  declarative table format — not scattered across plugin files.
-- Leader key is `<Space>`, set in `config/lazy.lua`.
-- Groups: `<leader>a` (Alpha), `<leader>c` (close), `<leader>d` (debug),
-  `<leader>l` (LSP), `<leader>s` (search/telescope),
-  `<leader>o` (OpenCode), `<leader>t` (tree), `<leader>R` (Rest/kulala).
-- Use `vim.keymap.set()` for keymaps inside plugin `on_attach` or `config`.
-- Always include `desc = "..."` for discoverability.
-
-### Error Handling
-
-- Use `pcall()` for calls that may fail (treesitter, optional plugins).
-- Do not use `assert()` or `error()` — let errors propagate or swallow
-  with pcall for non-critical functionality.
-
-### Comments
-
-- Single-line `--` comments only (no block comments `--[[ ]]`).
-- Use `-- FIXME:` for known issues with workarounds.
-- Use `-- TODO:` for planned improvements.
-- Inline comments after settings to explain purpose (see `globals.lua`).
-- Reference URLs on the line above relevant code.
-- Commented-out code is acceptable for preserving alternative configs.
-
-### Type Annotations
-
-- Not widely used. Only add `---@module` and `---@type` annotations when
-  they come from plugin documentation for `opts` typing.
-
-### LSP Handler Pattern
-
-When adding a new language server:
+## Adding a Language Server
 
 1. Add server name to `ensure_installed` in `lua/plugins/lsp/init.lua`.
-2. Create `lua/plugins/lsp/handlers/<server>.lua` returning a function.
+2. Create `lua/plugins/lsp/handlers/<server>.lua` returning a function that calls `vim.lsp.config()`.
 3. Use `utils.on_attach` and `utils.capabilities` from `handlers/utils.lua`.
 4. Register in `handlers/init.lua` barrel module.
-5. Add to the `handlers` table in `lsp/init.lua` setup.
-6. Servers without custom config use the `default` handler automatically.
+5. Call the handler from `lua/plugins/lsp/init.lua` (after `mason_lspconfig.setup()`).

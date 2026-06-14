@@ -9,7 +9,7 @@ return {
         icons_enabled = true,
         globalstatus = true,
       },
-      extensions = { "quickfix", "fugitive" },
+      extensions = { "quickfix" },
       sections = {
         lualine_a = { { "mode", upper = true } },
         lualine_b = { { "branch", icon = "" } },

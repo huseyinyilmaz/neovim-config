@@ -14,12 +14,14 @@ local normal_mode_mappings = {
   { "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc = "Show Signature Help" },
 
   { "g", group = "Go to..." },
+  { "gnc", "<cmd>lua require('gitsigns').next_hunk()<CR>", desc = "Next Hunk" },
+  { "gpc", "<cmd>lua require('gitsigns').prev_hunk()<CR>", desc = "Prev Hunk" },
   { "gq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Show All LSP Errors" },
   { "gl", '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<cr>', desc = "Show Diagnostics" },
   { "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "Go to Definition" },
   { "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Go to Decleration" },
   { "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "Go to Implementation" },
-  { "gr", "<cmd>Telescope lsp_references theme=ivy<CR>", desc = "Show LSP References" },
+  { "gr", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "Show LSP References" },
 
   { "<leader>a", "<cmd>Alpha<cr>", desc = "Alpha" },
   { "<leader>c", "<cmd>bdelete<CR>", desc = "Close Buffer" },
@@ -121,7 +123,7 @@ local normal_mode_mappings = {
   -- LSP
   { "<leader>l", group = "LSP" },
   { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
-  { "<leader>ld", "<cmd>Telescope diagnostics<cr>", desc = "Document Diagnostics" },
+  { "<leader>ld", "<cmd>PickDiagnostics<cr>", desc = "Document Diagnostics" },
   { "<leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", desc = "Format" },
   {
     "<leader>li",
@@ -134,24 +136,44 @@ local normal_mode_mappings = {
   { "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
   { "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix" },
   { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
-  { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols" },
-  { "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
+  { "<leader>ls", "<cmd>lua vim.lsp.buf.document_symbol()<cr>", desc = "Document Symbols" },
+  { "<leader>lS", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", desc = "Workspace Symbols" },
+
+  -- Git
+  { "<leader>g", group = "Git" },
+  {
+    "<leader>gn",
+    function()
+      require("gitsigns").next_hunk()
+    end,
+    desc = "Next Hunk",
+  },
+  {
+    "<leader>gp",
+    function()
+      require("gitsigns").prev_hunk()
+    end,
+    desc = "Prev Hunk",
+  },
 
   -- Search
   { "<leader>s", group = "Search" },
-  { "<leader>ss", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find Text" },
-  { "<leader>sf", "<cmd>Telescope find_files theme=ivy<cr>", desc = "Find files" },
-  { "<leader>sF", "<cmd>Telescope file_browser theme=ivy<cr>", desc = "File Browser" },
-  { "<leader>sb", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Find Buffer" },
-  { "<leader>sgb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
-  { "<leader>sc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
-  { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Find Help" },
-  { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-  { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File" },
-  { "<leader>sR", "<cmd>Telescope registers<cr>", desc = "Registers" },
-  { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
-  { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
-  { "<leader>sg", "<cmd>Telescope grep_string<cr>", desc = "Grep String" },
+  { "<leader>ss", "<cmd>lua MiniPick.builtin.grep_live()<CR>", desc = "Find Text" },
+  { "<leader>sf", "<cmd>lua MiniPick.builtin.files()<CR>", desc = "Find files" },
+  { "<leader>sF", "<cmd>Oil<cr>", desc = "File Browser" },
+  { "<leader>sb", "<cmd>lua MiniPick.builtin.buffers()<CR>", desc = "Find Buffer" },
+  { "<leader>sh", "<cmd>lua MiniPick.builtin.help()<CR>", desc = "Find Help" },
+  { "<leader>sr", "<cmd>PickOldfiles<cr>", desc = "Open Recent File" },
+  {
+    "<leader>sg",
+    function()
+      local word = vim.fn.expand("<cword>")
+      if word ~= "" then
+        require("mini.pick").builtin.grep({ pattern = word })
+      end
+    end,
+    desc = "Grep String",
+  },
 }
 
 local virtual_mode_mappings = {

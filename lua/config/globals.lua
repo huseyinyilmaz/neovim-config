@@ -28,6 +28,7 @@ vim.opt.hlsearch = true -- highlight all matches on previous search pattern
 vim.opt.ignorecase = true -- ignore case in search patterns
 vim.opt.mouse = "a" -- allow the mouse to be used in neovim
 vim.opt.pumheight = 10 -- pop up menu height
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
 vim.opt.showtabline = 2 -- always show tabs
 vim.opt.smartcase = true -- smart case
@@ -50,6 +51,26 @@ vim.opt.scrolloff = 8 -- is one of my fav
 vim.opt.sidescrolloff = 8
 
 vim.opt.shortmess:append("c")
+
+-- PUM navigation and completion keymaps
+local function pum_map(key, action)
+  vim.keymap.set("i", key, function()
+    if vim.fn.pumvisible() == 1 then
+      return action
+    end
+    return key
+  end, { expr = true })
+end
+
+pum_map("<C-j>", "<C-n>")
+pum_map("<C-k>", "<C-p>")
+
+vim.keymap.set("i", "<CR>", function()
+  if vim.fn.pumvisible() == 1 then
+    return "<C-y>"
+  end
+  return "<CR>"
+end, { expr = true })
 
 vim.opt.whichwrap:append("<,>,[,],h,l")
 vim.opt.exrc = true -- load .nvim.lua/.nvimrc/.exrc (trust-based in 0.12+)
