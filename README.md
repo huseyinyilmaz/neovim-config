@@ -14,6 +14,14 @@ To Install
 ❯ git clone git@github.com:huseyinyilmaz/neovim-config.git ~/.config/nvim
 ```
 
+Requirements
+------------
+- **tree-sitter CLI (>= 0.26.1)** — required by nvim-treesitter (`main` branch).
+  Download the prebuilt binary from
+  https://github.com/tree-sitter/tree-sitter/releases
+  (asset: `tree-sitter-cli-linux-x64.zip`), unzip it, and place the
+  `tree-sitter` binary somewhere on your `$PATH` (e.g., `~/.local/bin/`).
+  Do **not** install via npm — the npm package is out of date.
 
 Other Resources:
 ---------------
